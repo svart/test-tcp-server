@@ -1,4 +1,4 @@
-use std::cmp::{max, min};
+use std::cmp::min;
 use std::net::SocketAddr;
 
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
@@ -21,7 +21,7 @@ async fn server_connection_handler(mut sock: TcpStream) {
                 // println!("Received request {req_id} to send {left_to_send} bytes");
 
                 // We need to send header at least
-                left_to_send = max(left_to_send, HEADER_SIZE);
+                left_to_send += HEADER_SIZE;
 
                 while left_to_send > 0 {
                     let fun = if left_to_send < SEND_BUFFER_SIZE {
